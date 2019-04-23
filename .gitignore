@@ -1,0 +1,5 @@
+# misc gunge
+*.pyc
+
+# don't want passwords on Github
+settings.py

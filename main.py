@@ -6,6 +6,7 @@ from camera import VideoCamera
 from flask_basicauth import BasicAuth
 import time
 import threading
+import settings
 
 email_update_interval = 600 # sends an email only once in this time interval
 video_camera = VideoCamera(flip=True) # creates a camera object, flip vertically
@@ -13,8 +14,8 @@ object_classifier = cv2.CascadeClassifier("models/fullbody_recognition_model.xml
 
 # App Globals (do not edit)
 app = Flask(__name__)
-app.config['BASIC_AUTH_USERNAME'] = 'CHANGE_ME_USERNAME'
-app.config['BASIC_AUTH_PASSWORD'] = 'CHANGE_ME_PLEASE'
+app.config['BASIC_AUTH_USERNAME'] = settings.user
+app.config['BASIC_AUTH_PASSWORD'] = settings.password
 app.config['BASIC_AUTH_FORCE'] = True
 
 basic_auth = BasicAuth(app)

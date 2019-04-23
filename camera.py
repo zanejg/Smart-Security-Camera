@@ -1,12 +1,14 @@
 import cv2
 from imutils.video.pivideostream import PiVideoStream
+from imutils.video.webcamvideostream import WebcamVideoStream
 import imutils
 import time
 import numpy as np
+import settings
 
 class VideoCamera(object):
     def __init__(self, flip = False):
-        self.vs = PiVideoStream().start()
+        self.vs = WebcamVideoStream(settings.facevideosource).start()
         self.flip = flip
         time.sleep(2.0)
 
@@ -25,7 +27,7 @@ class VideoCamera(object):
 
     def get_object(self, classifier):
         found_objects = False
-        frame = self.flip_if_needed(self.vs.read()).copy() 
+        frame = self.flip_if_needed(self.vs.read()).copy()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         objects = classifier.detectMultiScale(
@@ -45,5 +47,3 @@ class VideoCamera(object):
 
         ret, jpeg = cv2.imencode('.jpg', frame)
         return (jpeg.tobytes(), found_objects)
-
-
